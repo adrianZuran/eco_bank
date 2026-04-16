@@ -15,13 +15,15 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-[#FAFDF8]">
+        <div class="min-h-screen bg-[#FAFDF8] flex flex-col">
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-grow">
                 {{ $slot }}
             </main>
+
+            @include('layouts.footer')
         </div>
     </body>
 </html>

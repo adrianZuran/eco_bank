@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Membuat akun admin
         User::factory()->create([
             'name' => 'Admin Bank',
             'email' => 'admin@example.com',
@@ -23,7 +22,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Membuat akun nasabah/user
         User::factory()->create([
             'name' => 'Nasabah Bank',
             'email' => 'user@example.com',
