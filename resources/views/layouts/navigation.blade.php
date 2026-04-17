@@ -1,14 +1,12 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 sticky top-0 z-50">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-12xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
             <!-- Logo -->
             <div class="shrink-0 flex items-center pr-8">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                    <div class="bg-[#5C8D3A] p-1.5 rounded-lg">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                    <div class="flex items-center justify-center bg-[#5C8D3A] p-1 rounded-lg w-9 h-9 overflow-hidden">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                     </div>
                     <span class="font-extrabold text-[#2C481A] text-xl tracking-tight">EcoBank</span>
                 </a>
@@ -56,12 +54,6 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-
-                <!-- Download App Btn -->
-                <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[#4B792B] hover:bg-[#3D6222] border border-transparent rounded-lg font-semibold text-xs text-white uppercase tracking-widest shadow-sm transition ease-in-out duration-150">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    Download App
-                </a>
             </div>
 
             <!-- Hamburger -->
