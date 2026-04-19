@@ -12,7 +12,7 @@ class TransactionController extends Controller
     public function index() {
         $categories = WasteCategory::all();
         $history = Transaction::where('user_id', auth()->id())->latest()->get();
-        return view('deposit', compact('categories', 'history'));
+        return view('user.deposit', compact('categories', 'history'));
     }
 
     // Proses simpan setoran

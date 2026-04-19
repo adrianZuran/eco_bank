@@ -14,17 +14,18 @@
 
             <!-- Centered Navigation Links -->
             <div class="hidden sm:flex sm:items-center sm:space-x-2 lg:space-x-6 flex-1 justify-center">
-                <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Beranda</a>
-                <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Katalog Harga</a>
-                <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Jual Sampah</a>
-                <a href="{{ route('dashboard') }}" class="px-4 py-2 rounded-md {{ request()->routeIs('dashboard') ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">
+                <a href="{{ route('home') }}" class="px-4 py-2 rounded-md {{ request()->routeIs('home') ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">Beranda</a>
+                <a href="{{ route('catalog') }}" class="px-4 py-2 rounded-md {{ request()->routeIs('catalog') ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">Katalog Harga</a>
+                <a href="{{ route('deposit.index') }}" class="px-4 py-2 rounded-md {{ request()->routeIs('deposit.index') ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">Jual Sampah</a>
+                <a href="{{ route('dashboard') }}" class="px-4 py-2 rounded-md {{ request()->routeIs(['dashboard', 'user.dashboard', 'admin.dashboard']) ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">
                     Dashboard
                 </a>
-                <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors">Kontak</a>
+                <a href="{{ route('contact') }}" class="px-4 py-2 rounded-md {{ request()->routeIs('contact') ? 'bg-[#EBF2E5] text-[#3F6A28] font-bold' : 'text-gray-500 hover:text-gray-900 font-medium' }} text-sm transition-colors">Kontak</a>
             </div>
 
             <!-- Right Side (Profile & App Button) -->
             <div class="hidden sm:flex sm:items-center sm:gap-4 pl-8">
+                @auth
                 <!-- Settings Dropdown -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -54,6 +55,16 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                @else
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('login', ['role' => 'admin']) }}" class="text-sm font-bold text-gray-500 hover:text-[#2C481A] px-2 transition-colors">
+                        Admin Portal
+                    </a>
+                    <a href="{{ route('login') }}" class="px-6 py-2.5 bg-[#4A7F2F] hover:bg-[#345920] text-white rounded-full text-sm font-bold shadow-md transition-colors border border-[#4A7F2F]">
+                        Masuk
+                    </a>
+                </div>
+                @endauth
             </div>
 
             <!-- Hamburger -->
@@ -71,14 +82,24 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs(['dashboard', 'user.dashboard', 'admin.dashboard'])">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('deposit.index')" :active="request()->routeIs('deposit.index')">
+                Jual Sampah
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('catalog')" :active="request()->routeIs('catalog')">
+                Katalog Harga
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                Kontak
             </x-responsive-nav-link>
             <!-- Add other responsive links here if needed -->
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
+            @auth
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
@@ -99,6 +120,18 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+            @else
+            <div class="px-4 mt-2">
+                <div class="space-y-2">
+                    <a href="{{ route('login', ['role' => 'admin']) }}" class="block px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-md text-sm font-bold text-center transition">
+                        Portal Admin
+                    </a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 bg-[#4A7F2F] hover:bg-[#345920] text-white rounded-md text-sm font-bold text-center shadow-md transition">
+                        Nasabah Masuk
+                    </a>
+                </div>
+            </div>
+            @endauth
         </div>
     </div>
 </nav>
