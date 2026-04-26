@@ -31,7 +31,7 @@
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center relative z-10">
                         <div>
                             <p class="text-green-50 font-medium tracking-wide mb-1">Saldo EcoWallet</p>
-                            <h1 class="text-4xl sm:text-[3.5rem] font-extrabold mt-1 mb-3 tracking-tight">Rp 247.500</h1>
+                            <h1 class="text-4xl sm:text-[3.5rem] font-extrabold mt-1 mb-3 tracking-tight">Rp {{ number_format(auth()->user()->balance, 0, ',', '.') }}</h1>
                             <p class="text-green-100 text-sm font-medium tracking-wide">
                                 +Rp 85.000 bulan ini • Level: <span class="text-yellow-400 font-bold ml-1">EcoHero ★</span>
                             </p>
@@ -49,7 +49,7 @@
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
                         <div class="mb-6">
                             <svg class="w-7 h-7 text-gray-800 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">34.5 kg</h3>
+                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($totalWeight, 1) }} kg</h3>
                             <p class="text-sm text-gray-500 mt-2">Total Sampah Disetorkan</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +8.2 kg <span class="text-gray-400 font-medium">dari bulan lalu</span></p>
@@ -59,7 +59,7 @@
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
                         <div class="mb-6">
                             <svg class="w-7 h-7 text-[#6B9F4B] mb-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.5 2a.5.5 0 0 1 .5.5 10 10 0 0 1-5 9.778V14a2 2 0 1 1-4 0v-2a10 10 0 0 1 7.5-9.778A.5.5 0 0 1 12.5 2z" clip-rule="evenodd"/></svg>
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">12</h3>
+                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($treesSaved, 1) }}</h3>
                             <p class="text-sm text-gray-500 mt-2">Pohon Setara Diselamatkan</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +3 pohon</p>
@@ -69,7 +69,7 @@
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
                         <div class="mb-6">
                             <svg class="w-7 h-7 text-gray-600 mb-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.666 6.666c-.341-2.92-2.825-5.166-5.833-5.166-2.527 0-4.662 1.545-5.5 3.754C7.03 5.093 6.696 5 6.333 5 4.492 5 3 6.492 3 8.333c0 .114.007.227.021.341-1.745.547-3.021 2.215-3.021 4.159C0 15.134 1.866 17 4.167 17H19.5c2.485 0 4.5-2.015 4.5-4.5 0-2.34-1.79-4.269-4.06-4.476A6.155 6.155 0 0 0 18.666 6.666z"/></svg> 
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">48 kg</h3>
+                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($co2Saved, 1) }} kg</h3>
                             <p class="text-sm text-gray-500 mt-2">CO2 Tidak Diemisikan</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +11 kg</p>
@@ -79,7 +79,7 @@
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
                         <div class="mb-6">
                             <svg class="w-7 h-7 text-yellow-500 mb-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2l2.39 4.846 5.353.778-3.87 3.774.914 5.333L10 14.225l-4.787 2.506.914-5.333-3.871-3.774 5.353-.778L10 2z"/></svg>
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">1.240</h3>
+                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($ecoPoints, 0, ',', '.') }}</h3>
                             <p class="text-sm text-gray-500 mt-2">EcoPoints Terkumpul</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +320 poin</p>
@@ -89,7 +89,7 @@
                     <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
                         <div class="mb-6">
                             <svg class="w-7 h-7 text-blue-400 mb-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"/><path d="M7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">7</h3>
+                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ $totalTransactions }}</h3>
                             <p class="text-sm text-gray-500 mt-2">Total Transaksi</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +2 transaksi</p>
@@ -136,32 +136,22 @@
                         </h3>
 
                         <div class="space-y-6">
-                            <!-- Trx 1 -->
+                            @forelse($recentTransactions as $trx)
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-4">
                                     <div class="bg-[#F2F7EF] p-3 rounded-full text-[#3F6A28]">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                     </div>
                                     <div>
-                                        <h4 class="text-[15px] font-bold text-gray-900">Plastik PET + Kardus</h4>
-                                        <p class="text-[13px] text-gray-500 font-medium">12 Apr 2025 • EcoPoint Rungkut</p>
+                                        <h4 class="text-[15px] font-bold text-gray-900">{{ $trx->wasteCategory->name ?? 'Sampah' }}</h4>
+                                        <p class="text-[13px] text-gray-500 font-medium">{{ $trx->created_at->format('d M Y') }} • {{ $trx->ecopoint_branch ?? $trx->shipping_type }}</p>
                                     </div>
                                 </div>
-                                <span class="text-base font-extrabold text-[#3F6A28]">+Rp 45.000</span>
+                                <span class="text-base font-extrabold text-[#3F6A28]">+Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</span>
                             </div>
-                            <!-- Trx 2 -->
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-4">
-                                    <div class="bg-[#F2F7EF] p-3 rounded-full text-[#3F6A28]">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-[15px] font-bold text-gray-900">Kaleng Aluminium</h4>
-                                        <p class="text-[13px] text-gray-500 font-medium">05 Apr 2025 • EcoPoint Rungkut</p>
-                                    </div>
-                                </div>
-                                <span class="text-base font-extrabold text-[#3F6A28]">+Rp 24.000</span>
-                            </div>
+                            @empty
+                            <p class="text-gray-500 text-sm text-center py-4">Belum ada transaksi di riwayat Anda.</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>

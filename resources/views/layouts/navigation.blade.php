@@ -5,10 +5,9 @@
             <!-- Logo -->
             <div class="shrink-0 flex items-center pr-8">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
-                    <div class="flex items-center justify-center bg-[#5C8D3A] p-1 rounded-lg w-9 h-9 overflow-hidden">
+                    <div class="flex items-center justify-center p-1 rounded-lg w-20 h-20 overflow-hidden">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                     </div>
-                    <span class="font-extrabold text-[#2C481A] text-xl tracking-tight">EcoBank</span>
                 </a>
             </div>
 

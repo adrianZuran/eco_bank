@@ -30,7 +30,12 @@ class TransactionController extends Controller
             'waste_category_id' => $request->waste_category_id,
             'weight' => $request->weight,
             'total_amount' => $total_amount,
-            'status' => 'pending'
+            'status' => 'pending',
+            'shipping_type' => $request->shipping_type ?? 'Antar Sendiri ke EcoPoint',
+            'address' => $request->address,
+            'ecopoint_branch' => $request->ecopoint_branch,
+            'pickup_date' => $request->pickup_date,
+            'notes' => $request->notes,
         ]);
 
         return back()->with('success', 'Setoran berhasil! Tunggu verifikasi admin.');

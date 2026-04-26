@@ -34,7 +34,18 @@ Route::middleware('auth')->group(function () {
 // ROUTE UNTUK NASABAH (USER BIASA)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/dashboard', function () {
-        return view('user.dashboard');
+        $user = auth()->user();
+        $transactions = $user->transactions()->with('wasteCategory')->latest()->get();
+        
+        $totalWeight = $transactions->where('status', 'confirmed')->sum('weight');
+        $totalTransactions = $transactions->count();
+        $recentTransactions = $transactions->take(3);
+        
+        $treesSaved = $totalWeight * 0.5;
+        $co2Saved = $totalWeight * 1.2;
+        $ecoPoints = floor($user->balance / 100);
+
+        return view('user.dashboard', compact('totalWeight', 'totalTransactions', 'treesSaved', 'co2Saved', 'ecoPoints', 'recentTransactions'));
     })->name('user.dashboard');
     Route::get('/deposit', [TransactionController::class, 'index'])->name('deposit.index');
     Route::post('/deposit', [TransactionController::class, 'store'])->name('deposit.store');
@@ -59,6 +70,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('/admin/transactions', [AdminController::class, 'index'])->name('admin.index');
     Route::patch('/admin/transactions/{id}/confirm', [AdminController::class, 'confirm'])->name('admin.confirm');
+    Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
 });
 
 require __DIR__.'/auth.php';

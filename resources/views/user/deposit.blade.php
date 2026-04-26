@@ -25,9 +25,7 @@
             <form action="{{ route('deposit.store') }}" method="POST">
                 @csrf
                 
-                <!-- Hidden inputs default for functionality testing based on original controller -->
-                <input type="hidden" name="waste_category_id" value="{{ $categories->first()->id ?? 1 }}">
-                <input type="hidden" name="weight" value="1">
+                <!-- Removed hardcoded hidden inputs -->
 
                 <!-- 1. Informasi Personal -->
                 <div class="bg-white rounded-3xl p-6 sm:p-8 mb-6 shadow-sm border border-gray-100/80">
@@ -64,25 +62,27 @@
                     <div class="space-y-5">
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Jenis Pengiriman <span class="text-red-500">*</span></label>
-                            <select class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
-                                <option>Antar Sendiri ke EcoPoint</option>
-                                <option>Penjemputan / Pickup</option>
+                            <select name="shipping_type" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
+                                <option value="Antar Sendiri ke EcoPoint">Antar Sendiri ke EcoPoint</option>
+                                <option value="Penjemputan / Pickup">Penjemputan / Pickup</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Alamat Lengkap <span class="text-red-500">*</span></label>
-                            <textarea class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-28 resize-y" placeholder="Nama Jalan, No. Rumah, RT/RW, Kecamatan..."></textarea>
+                            <textarea name="address" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-28 resize-y" placeholder="Nama Jalan, No. Rumah, RT/RW, Kecamatan..."></textarea>
                         </div>
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Pilih Cabang EcoPoint <span class="text-red-500">*</span></label>
-                            <select class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
-                                <option>Pilih EcoPoint Terdekat</option>
+                            <select name="ecopoint_branch" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
+                                <option value="">Pilih EcoPoint Terdekat</option>
+                                <option value="Cabang Pusat">Cabang Pusat</option>
+                                <option value="Cabang Utara">Cabang Utara</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Jadwal Setor <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <input type="datetime-local" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm">
+                                <input type="datetime-local" name="pickup_date" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm">
                             </div>
                         </div>
                     </div>
@@ -90,36 +90,35 @@
 
                 <!-- 3. Detail Sampah -->
                 <div class="bg-white rounded-3xl p-6 sm:p-8 mb-6 shadow-sm border border-gray-100/80">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-[1.15rem] font-extrabold text-[#2C481A] flex items-center gap-3">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full border border-[#BDE8A5] text-[#3F6A28] bg-[#F2F7EF] text-sm font-bold">3</span>
-                            Detail Sampah
-                        </h2>
-                        <button type="button" class="text-xs font-bold text-[#4A7F2F] border border-[#BDE8A5] bg-[#F8FCF5] rounded-full px-4 py-2 hover:bg-[#F2F7EF] transition flex items-center gap-1.5">
-                            <span class="text-lg leading-none">+</span> Tambah Item
-                        </button>
-                    </div>
+                    <h2 class="text-[1.15rem] font-extrabold text-[#2C481A] flex items-center gap-3 mb-6">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full border border-[#BDE8A5] text-[#3F6A28] bg-[#F2F7EF] text-sm font-bold">3</span>
+                        Detail Sampah
+                    </h2>
                     
-                    <div class="border-[1.5px] border-dashed border-gray-200 bg-[#FCFDFB] rounded-2xl p-8 text-center mb-4 flex flex-col items-center justify-center">
-                        <div class="mb-3 text-[#5A734D] opacity-60">
-                            <!-- Custom Bag Icon -->
-                            <svg class="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 6h-2c0-2.8-2.2-5-5-5S7 3.2 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.7 0 3 1.3 3 3H9c0-1.7 1.3-3 3-3zm7 17H5V8h14v12z"/>
-                                <path d="M9 10v2h6v-2z"/>
-                            </svg>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Jenis Sampah <span class="text-red-500">*</span></label>
+                            <select id="waste_category" name="waste_category_id" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10" onchange="calculateTotal()" required>
+                                <option value="" disabled selected>Pilih Jenis Sampah</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}" data-price="{{ $cat->price_per_kg }}">{{ $cat->name }} - Rp {{ number_format($cat->price_per_kg, 0, ',', '.') }}/kg</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <p class="text-gray-500 text-sm mb-1.5 font-medium">Belum ada sampah yang ditambahkan.</p>
-                        <button type="button" class="text-[#3F6A28] text-sm font-extrabold hover:underline rounded focus:outline-none">+ Tambah dari katalog</button>
-                    </div>
+                        <div>
+                            <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Perkiraan Berat <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input type="number" id="weight" name="weight" step="0.1" min="0.1" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm" placeholder="Contoh: 1.5" onkeyup="calculateTotal()" onchange="calculateTotal()" required>
+                                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-gray-400 font-bold text-sm">
+                                    Kg
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="border-[1.5px] border-dashed border-gray-200 bg-[#FCFDFB] rounded-2xl p-8 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition">
-                        <div class="mb-3 text-[#3F6A28]">
-                            <svg class="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
-                            </svg>
+                        <div class="bg-[#F8FCF5] border border-[#BDE8A5] rounded-xl p-4 mt-4 flex justify-between items-center">
+                            <span class="text-[13px] font-bold text-[#3F6A28]">Estimasi Pendapatan</span>
+                            <span id="estimated_total" class="text-lg font-extrabold text-[#2C481A]">Rp 0</span>
                         </div>
-                        <p class="text-gray-500 text-[13.5px]"><span class="font-extrabold text-[#3F6A28]">Klik untuk upload</span> atau drag & drop foto sampah</p>
-                        <p class="text-[#A4B39B] text-xs mt-1.5 font-medium">Gunakan kamera atau galeri • JPG, PNG maks. 10MB</p>
                     </div>
                 </div>
 
@@ -130,7 +129,7 @@
                         Catatan Tambahan <span class="text-gray-400 font-medium text-[13px] ml-[-4px]">(opsional)</span>
                     </h2>
                     <div>
-                        <textarea class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-24 resize-y" placeholder="Contoh: Sampah sudah dipisah per jenis, plastik dalam karung..."></textarea>
+                        <textarea name="notes" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-24 resize-y" placeholder="Contoh: Sampah sudah dipisah per jenis, plastik dalam karung..."></textarea>
                     </div>
                 </div>
 
@@ -146,4 +145,27 @@
             </form>
         </div>
     </div>
+
+    <!-- Script for Dynamic Calculation -->
+    <script>
+        function calculateTotal() {
+            const select = document.getElementById('waste_category');
+            const weightInput = document.getElementById('weight');
+            const totalDisplay = document.getElementById('estimated_total');
+
+            if (select.selectedIndex && weightInput.value) {
+                const option = select.options[select.selectedIndex];
+                const pricePerKg = option.getAttribute('data-price');
+                const weight = parseFloat(weightInput.value);
+
+                if (pricePerKg && weight > 0) {
+                    const total = pricePerKg * weight;
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(total);
+                    return;
+                }
+            }
+            
+            totalDisplay.innerText = 'Rp 0';
+        }
+    </script>
 </x-app-layout>
