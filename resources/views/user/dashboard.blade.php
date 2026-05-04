@@ -1,6 +1,27 @@
 <x-app-layout>
-    <div class="py-10">
+    <div class="py-10" x-data="{ showModal: false }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <!-- Alert Messages -->
+            @if(session('success'))
+            <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl relative" role="alert">
+                <span class="block sm:inline font-medium">{{ session('success') }}</span>
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                <span class="block sm:inline font-medium">{{ session('error') }}</span>
+            </div>
+            @endif
+            @if($errors->any())
+            <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
+                <ul class="list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <!-- EcoBank User Dashboard -->
             <div class="flex flex-col gap-8">
                 <!-- Greeting Row -->
@@ -17,8 +38,6 @@
                     </div>
                     <div class="flex gap-2">
                         <button class="px-5 py-2 bg-[#3F6A28] text-white rounded-full text-sm font-semibold shadow-sm hover:bg-[#345920] transition">Bulan Ini</button>
-                        <button class="px-5 py-2 bg-white border border-gray-200 text-gray-700 rounded-full text-sm font-semibold shadow-sm hover:bg-gray-50 transition">3 Bulan</button>
-                        <button class="px-5 py-2 bg-white border border-gray-200 text-gray-700 rounded-full text-sm font-semibold shadow-sm hover:bg-gray-50 transition">Semua</button>
                     </div>
                 </div>
 
@@ -30,14 +49,14 @@
                     
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center relative z-10">
                         <div>
-                            <p class="text-green-50 font-medium tracking-wide mb-1">Saldo EcoWallet</p>
-                            <h1 class="text-4xl sm:text-[3.5rem] font-extrabold mt-1 mb-3 tracking-tight">Rp {{ number_format(auth()->user()->balance, 0, ',', '.') }}</h1>
+                            <p class="text-green-50 font-medium tracking-wide mb-1">Poin Terkumpul</p>
+                            <h1 class="text-4xl sm:text-[3.5rem] font-extrabold mt-1 mb-3 tracking-tight">{{ number_format(auth()->user()->balance, 0, ',', '.') }} Poin</h1>
                             <p class="text-green-100 text-sm font-medium tracking-wide">
-                                +Rp 85.000 bulan ini • Level: <span class="text-yellow-400 font-bold ml-1">EcoHero ★</span>
+                                +85.000 Poin bulan ini • Level: <span class="text-yellow-400 font-bold ml-1">EcoHero ★</span>
                             </p>
                         </div>
                         <div class="mt-8 sm:mt-0 flex gap-3 w-full sm:w-auto">
-                            <button class="flex-1 sm:flex-none px-6 py-3 bg-transparent border border-green-300 text-green-50 rounded-xl text-sm font-bold tracking-wide hover:bg-white/10 transition text-center whitespace-nowrap">Tarik Saldo</button>
+                            <button @click="showModal = true" class="flex-1 sm:flex-none px-6 py-3 bg-transparent border border-green-300 text-green-50 rounded-xl text-sm font-bold tracking-wide hover:bg-white/10 transition text-center whitespace-nowrap">Tukar Poin</button>
                             <a href="{{ route('deposit.index') }}" class="inline-block flex-1 sm:flex-none px-6 py-3 bg-white text-[#3F6A28] rounded-xl text-sm font-bold tracking-wide hover:bg-gray-100 shadow-md transition text-center whitespace-nowrap">+ Setor Sampah</a>
                         </div>
                     </div>
@@ -53,26 +72,6 @@
                             <p class="text-sm text-gray-500 mt-2">Total Sampah Disetorkan</p>
                         </div>
                         <p class="text-sm text-[#4A7F2F] font-bold">▲ +8.2 kg <span class="text-gray-400 font-medium">dari bulan lalu</span></p>
-                    </div>
-                    
-                    <!-- Stat 2 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
-                        <div class="mb-6">
-                            <svg class="w-7 h-7 text-[#6B9F4B] mb-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.5 2a.5.5 0 0 1 .5.5 10 10 0 0 1-5 9.778V14a2 2 0 1 1-4 0v-2a10 10 0 0 1 7.5-9.778A.5.5 0 0 1 12.5 2z" clip-rule="evenodd"/></svg>
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($treesSaved, 1) }}</h3>
-                            <p class="text-sm text-gray-500 mt-2">Pohon Setara Diselamatkan</p>
-                        </div>
-                        <p class="text-sm text-[#4A7F2F] font-bold">▲ +3 pohon</p>
-                    </div>
-                    
-                    <!-- Stat 3 -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100/60 flex flex-col justify-between h-full hover:shadow-md transition">
-                        <div class="mb-6">
-                            <svg class="w-7 h-7 text-gray-600 mb-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.666 6.666c-.341-2.92-2.825-5.166-5.833-5.166-2.527 0-4.662 1.545-5.5 3.754C7.03 5.093 6.696 5 6.333 5 4.492 5 3 6.492 3 8.333c0 .114.007.227.021.341-1.745.547-3.021 2.215-3.021 4.159C0 15.134 1.866 17 4.167 17H19.5c2.485 0 4.5-2.015 4.5-4.5 0-2.34-1.79-4.269-4.06-4.476A6.155 6.155 0 0 0 18.666 6.666z"/></svg> 
-                            <h3 class="text-[1.75rem] font-extrabold text-gray-900 leading-tight">{{ number_format($co2Saved, 1) }} kg</h3>
-                            <p class="text-sm text-gray-500 mt-2">CO2 Tidak Diemisikan</p>
-                        </div>
-                        <p class="text-sm text-[#4A7F2F] font-bold">▲ +11 kg</p>
                     </div>
                     
                     <!-- Stat 4 -->
@@ -126,7 +125,6 @@
                         </div>
                     </div>
 
-                    <!-- Riwayat Transaksi -->
                     <div class="bg-white rounded-3xl shadow-sm border border-gray-100/60 p-7">
                         <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2.5">
                             <span class="bg-blue-100 p-2 rounded-full text-blue-500">
@@ -147,7 +145,7 @@
                                         <p class="text-[13px] text-gray-500 font-medium">{{ $trx->created_at->format('d M Y') }} • {{ $trx->ecopoint_branch ?? $trx->shipping_type }}</p>
                                     </div>
                                 </div>
-                                <span class="text-base font-extrabold text-[#3F6A28]">+Rp {{ number_format($trx->total_amount, 0, ',', '.') }}</span>
+                                <span class="text-base font-extrabold text-[#3F6A28]">+{{ number_format($trx->total_amount, 0, ',', '.') }} Poin</span>
                             </div>
                             @empty
                             <p class="text-gray-500 text-sm text-center py-4">Belum ada transaksi di riwayat Anda.</p>
@@ -155,6 +153,53 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tukar Poin -->
+    <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div x-show="showModal" class="fixed inset-0 transition-opacity" aria-hidden="true" x-transition.opacity>
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div x-show="showModal" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full" x-transition.opacity>
+                <form action="{{ route('exchange.store') }}" method="POST">
+                    @csrf
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                <svg class="h-6 w-6 text-[#4A7F2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">Tukar Poin Anda</h3>
+                                <div class="mt-4 space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Penukaran</label>
+                                        <select name="reward_type" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm">
+                                            <option value="uang">Uang (Transfer Bank/E-Wallet)</option>
+                                            <option value="pulsa">Pulsa / Paket Data</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Poin (Min. 1000)</label>
+                                        <input type="number" name="points_deducted" min="1000" max="{{ auth()->user()->balance }}" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm" placeholder="Contoh: 10000">
+                                        <p class="text-xs text-gray-500 mt-1">Sisa poin Anda: {{ number_format(auth()->user()->balance, 0, ',', '.') }}</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Rekening / No. HP</label>
+                                        <input type="text" name="account_info" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm" placeholder="Contoh: BCA 1234567890 / 081234567890">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="submit" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2 bg-[#3F6A28] text-base font-medium text-white hover:bg-[#345920] focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">Tukar Sekarang</button>
+                        <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Batal</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

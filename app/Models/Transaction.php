@@ -6,7 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id', 
+        'waste_category_id', 
+        'weight', 
+        'total_amount', 
+        'status',
+        'shipping_type',
+        'address',
+        'ecopoint_branch',
+        'pickup_date',
+        'notes',
+        'waste_image'
+    ];
 
     public function user()
     {

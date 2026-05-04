@@ -31,7 +31,6 @@
                         Lihat Harga Sampah
                     </a>
                 </div>
-                
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                     <div>
                         <div class="text-3xl font-extrabold text-white mb-1">12.400+</div>
@@ -46,83 +45,27 @@
                         <div class="text-sm text-green-100/80 font-medium">Titik Setor Mitra</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-extrabold text-white mb-1">Rp 2,4 M</div>
-                        <div class="text-sm text-green-100/80 font-medium">Total Payout ke Warga</div>
+                        <div class="text-3xl font-extrabold text-white mb-1">2,4 Juta Poin</div>
+                        <div class="text-sm text-green-100/80 font-medium">Poin Ditukarkan Warga</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Impact Stats Bar -->
-    <div class="bg-white border-b border-gray-100 shadow-sm relative z-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
-                        <span class="text-green-600 text-xl">🌲</span>
-                    </div>
-                    <div>
-                        <div class="text-lg font-extrabold text-gray-800">4.200</div>
-                        <div class="text-[11px] text-gray-500 font-medium uppercase tracking-wider">Pohon Setara Diselamatkan</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
-                        <span class="text-blue-500 text-xl">💧</span>
-                    </div>
-                    <div>
-                        <div class="text-lg font-extrabold text-gray-800">180 m³</div>
-                        <div class="text-[11px] text-gray-500 font-medium uppercase tracking-wider">Air Bersih Terhemat</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center">
-                        <span class="text-orange-500 text-xl">⚡</span>
-                    </div>
-                    <div>
-                        <div class="text-lg font-extrabold text-gray-800">92 MWh</div>
-                        <div class="text-[11px] text-gray-500 font-medium uppercase tracking-wider">Energi Terhemat</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center">
-                        <span class="text-gray-500 text-xl">☁️</span>
-                    </div>
-                    <div>
-                        <div class="text-lg font-extrabold text-gray-800">680 ton</div>
-                        <div class="text-[11px] text-gray-500 font-medium uppercase tracking-wider">CO2 Tidak Dilepaskan</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Features Section -->
     <div class="py-20 bg-[#FAFBFA]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-14">
                 <span class="text-[11px] font-extrabold text-[#5A8D3F] tracking-[0.15em] uppercase block mb-3">Fitur Unggulan</span>
                 <h2 class="text-[2.25rem] font-extrabold text-[#2C481A] mb-4 tracking-tight max-w-xl">
-                    Semua yang Kamu Butuhkan, Dalam Satu Platform
+                    Tukerkan Sampahmu dan Dapatkan cuan
                 </h2>
                 <p class="text-gray-500 font-medium text-sm max-w-2xl">
                     Dari setor sampah hingga dompet digital — EcoBank memudahkan seluruh proses daur ulang sampahmu.
                 </p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
-                        <div class="w-6 h-8 bg-blue-100 rounded flex flex-col justify-center items-center shadow-inner">
-                            <div class="w-3 h-3 border-2 border-blue-400 border-dashed"></div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-extrabold text-gray-800 mb-3">Setor via QR Code</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Scan QR di titik setor mitra terdekat. Proses cepat, transparan, dan langsung tercatat di akun kamu.</p>
-                </div>
-                <!-- Feature 2 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
                         <div class="w-8 h-8 bg-pink-100 rounded flex items-center justify-center shadow-inner">
@@ -132,17 +75,7 @@
                     <h3 class="text-lg font-extrabold text-gray-800 mb-3">Kalkulator Sampah</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">Estimasi nilai sampahmu sebelum setor. Masukkan jenis dan berat — langsung tampil harga terkini.</p>
                 </div>
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
-                        <div class="w-8 h-6 bg-orange-200 rounded shadow-inner relative">
-                            <div class="absolute right-1 top-1 w-2 h-2 rounded-full bg-orange-400"></div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-extrabold text-gray-800 mb-3">Dompet Digital</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Hasil setor masuk otomatis ke saldo EcoWallet. Tarik ke rekening bank atau pakai beli pulsa.</p>
-                </div>
-                <!-- Feature 4 -->
+                <!-- Feature 2 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
                         <div class="w-7 h-7 bg-yellow-100 rounded-full flex items-center justify-center shadow-inner">
@@ -152,17 +85,7 @@
                     <h3 class="text-lg font-extrabold text-gray-800 mb-3">Misi & Gamifikasi</h3>
                     <p class="text-gray-500 text-sm leading-relaxed">Selesaikan misi mingguan, kumpulkan poin, raih level EcoHero, dan tukar hadiah menarik.</p>
                 </div>
-                <!-- Feature 5 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                    <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
-                        <div class="w-8 h-8 rounded-full border-4 border-cyan-400 flex items-center justify-center opacity-80">
-                            <div class="w-full h-1/2 bg-purple-400 rounded-t-full"></div>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-extrabold text-gray-800 mb-3">Dashboard Impact</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">Lihat dampak nyata kontribusimu — CO2 yang dihemat, pohon setara diselamatkan, total sampah.</p>
-                </div>
-                <!-- Feature 6 -->
+                <!-- Feature 3 -->
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
                     <div class="w-14 h-14 bg-[#F6F8F5] rounded-xl flex items-center justify-center mb-6">
                         <div class="w-6 h-8 bg-green-200 rounded-t-full shadow-inner flex justify-center">
@@ -242,15 +165,15 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition cursor-pointer">
                     <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Plastik</p>
                     <h3 class="font-extrabold text-gray-800 text-sm mb-2">Botol PET Bening</h3>
-                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">Rp 2.500 <span class="text-xs text-gray-400 font-medium">/kg</span></p>
-                    <p class="text-[#4A7F2F] text-[11px] font-bold flex items-center gap-1">▲ Naik Rp 200</p>
+                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">2.500 Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                    <p class="text-[#4A7F2F] text-[11px] font-bold flex items-center gap-1">▲ Naik 200 Poin</p>
                 </div>
                 
                 <!-- Price Card 2 -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition cursor-pointer">
                     <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Kertas</p>
                     <h3 class="font-extrabold text-gray-800 text-sm mb-2">Koran & Majalah</h3>
-                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">Rp 1.800 <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">1.800 Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                     <p class="text-[#4A7F2F] text-[11px] font-bold flex items-center gap-1">▲ Stabil</p>
                 </div>
 
@@ -258,16 +181,16 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition cursor-pointer">
                     <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Logam</p>
                     <h3 class="font-extrabold text-gray-800 text-sm mb-2">Kaleng Aluminium</h3>
-                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">Rp 8.000 <span class="text-xs text-gray-400 font-medium">/kg</span></p>
-                    <p class="text-red-500 text-[11px] font-bold flex items-center gap-1">▼ Turun Rp 500</p>
+                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">8.000 Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                    <p class="text-red-500 text-[11px] font-bold flex items-center gap-1">▼ Turun 500 Poin</p>
                 </div>
 
                 <!-- Price Card 4 -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition cursor-pointer">
                     <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">Kaca</p>
                     <h3 class="font-extrabold text-gray-800 text-sm mb-2">Botol Kaca Bening</h3>
-                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">Rp 500 <span class="text-xs text-gray-400 font-medium">/kg</span></p>
-                    <p class="text-[#4A7F2F] text-[11px] font-bold flex items-center gap-1">▲ Naik Rp 50</p>
+                    <p class="text-[#3F6A28] font-extrabold text-xl flex items-baseline gap-1 mb-1">500 Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                    <p class="text-[#4A7F2F] text-[11px] font-bold flex items-center gap-1">▲ Naik 50 Poin</p>
                 </div>
             </div>
         </div>

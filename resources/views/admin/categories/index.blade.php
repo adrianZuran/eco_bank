@@ -40,7 +40,14 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-sm font-bold text-gray-900 group-hover:text-[#5C8D3A] transition-colors">{{ $item->name }}</span>
+                                <div class="flex items-center gap-3">
+                                    @if($item->image)
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-10 h-10 object-cover rounded-md border border-gray-200">
+                                    @else
+                                        <div class="w-10 h-10 bg-gray-100 rounded-md border border-gray-200 flex items-center justify-center text-[10px] text-gray-400 font-bold text-center leading-tight">No<br>Img</div>
+                                    @endif
+                                    <span class="text-sm font-bold text-gray-900 group-hover:text-[#5C8D3A] transition-colors">{{ $item->name }}</span>
+                                </div>
                             </td>
                             <td class="px-6 py-4 text-sm font-bold text-[#5C8D3A] whitespace-nowrap">
                                 Rp {{ number_format($item->price_per_kg, 0, ',', '.') }}

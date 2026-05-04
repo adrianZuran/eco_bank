@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CatalogController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PointExchangeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,11 @@ Route::get('/beranda', function () {
 Route::get('/kontak', function () {
     return view('user.contact');
 })->name('contact');
+
+Route::get('/katalog', function () {
+    $categories = \App\Models\WasteCategory::orderBy('category')->orderBy('name')->get()->groupBy('category');
+    return view('user.catalog', compact('categories'));
+})->name('catalog');
 
 Route::get('/dashboard', function () {
     if (auth()->user()->role === 'admin') {
@@ -49,10 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('user.dashboard');
     Route::get('/deposit', [TransactionController::class, 'index'])->name('deposit.index');
     Route::post('/deposit', [TransactionController::class, 'store'])->name('deposit.store');
-    Route::get('/katalog', function () {
-        $categories = \App\Models\WasteCategory::orderBy('category')->orderBy('name')->get()->groupBy('category');
-        return view('user.catalog', compact('categories'));
-    })->name('catalog');
+    Route::post('/exchange', [PointExchangeController::class, 'store'])->name('exchange.store');
 });
 
 // ROUTE KHUSUS ADMIN (PETUGAS BANK SAMPAH)
@@ -70,7 +73,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 
     Route::get('/admin/transactions', [AdminController::class, 'index'])->name('admin.index');
     Route::patch('/admin/transactions/{id}/confirm', [AdminController::class, 'confirm'])->name('admin.confirm');
+    Route::patch('/admin/transactions/{id}/reject', [AdminController::class, 'rejectTransaction'])->name('admin.reject');
     Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
+    
+    Route::get('/admin/exchanges', [AdminController::class, 'exchanges'])->name('admin.exchanges.index');
+    Route::patch('/admin/exchanges/{id}/approve', [AdminController::class, 'approveExchange'])->name('admin.exchanges.approve');
+    Route::patch('/admin/exchanges/{id}/reject', [AdminController::class, 'rejectExchange'])->name('admin.exchanges.reject');
 });
 
 require __DIR__.'/auth.php';

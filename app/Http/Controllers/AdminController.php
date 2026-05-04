@@ -30,7 +30,18 @@ class AdminController extends Controller
             $user->balance += $transaction->total_amount;
             $user->save();
 
-            return back()->with('success', 'Transaksi berhasil diverifikasi! Saldo nasabah bertambah Rp ' . number_format($transaction->total_amount, 0, ',', '.'));
+            return back()->with('success', 'Transaksi berhasil diverifikasi! Poin nasabah bertambah ' . number_format($transaction->total_amount, 0, ',', '.') . ' Poin.');
+        }
+
+        return back()->with('error', 'Transaksi sudah diproses sebelumnya.');
+    }
+
+    public function rejectTransaction($id) {
+        $transaction = \App\Models\Transaction::findOrFail($id);
+        
+        if ($transaction->status === 'pending') {
+            $transaction->update(['status' => 'rejected']);
+            return back()->with('success', 'Transaksi berhasil ditolak.');
         }
 
         return back()->with('error', 'Transaksi sudah diproses sebelumnya.');
@@ -53,5 +64,34 @@ class AdminController extends Controller
         $user->save();
 
         return back()->with('success', 'Nasabah baru berhasil didaftarkan!');
+    }
+
+    public function exchanges() {
+        $exchanges = \App\Models\PointExchange::with('user')->latest()->get();
+        return view('admin.exchanges.index', compact('exchanges'));
+    }
+
+    public function approveExchange($id) {
+        $exchange = \App\Models\PointExchange::findOrFail($id);
+        if ($exchange->status === 'pending') {
+            $exchange->update(['status' => 'approved']);
+            return back()->with('success', 'Penukaran poin berhasil disetujui.');
+        }
+        return back()->with('error', 'Status penukaran tidak dapat diubah.');
+    }
+
+    public function rejectExchange($id) {
+        $exchange = \App\Models\PointExchange::findOrFail($id);
+        if ($exchange->status === 'pending') {
+            $exchange->update(['status' => 'rejected']);
+            
+            // Kembalikan poin ke user
+            $user = $exchange->user;
+            $user->balance += $exchange->points_deducted;
+            $user->save();
+
+            return back()->with('success', 'Penukaran poin ditolak. Poin telah dikembalikan ke nasabah.');
+        }
+        return back()->with('error', 'Status penukaran tidak dapat diubah.');
     }
 }

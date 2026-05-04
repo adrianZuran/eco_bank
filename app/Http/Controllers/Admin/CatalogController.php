@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\WasteCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogController extends Controller
 {
@@ -30,7 +31,12 @@ class CatalogController extends Controller
             'price_per_kg' => 'required|integer|min:0',
             'trend' => 'required|in:naik,turun,stabil',
             'trend_amount' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('catalog_images', 'public');
+        }
 
         WasteCategory::create($validated);
 
@@ -54,7 +60,15 @@ class CatalogController extends Controller
             'price_per_kg' => 'required|integer|min:0',
             'trend' => 'required|in:naik,turun,stabil',
             'trend_amount' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            if ($catalog->image) {
+                Storage::disk('public')->delete($catalog->image);
+            }
+            $validated['image'] = $request->file('image')->store('catalog_images', 'public');
+        }
 
         $catalog->update($validated);
 
@@ -63,6 +77,9 @@ class CatalogController extends Controller
 
     public function destroy(WasteCategory $catalog)
     {
+        if ($catalog->image) {
+            Storage::disk('public')->delete($catalog->image);
+        }
         $catalog->delete();
         return redirect()->route('admin.catalog.index')->with('success', 'Produk sampah berhasil dihapus.');
     }

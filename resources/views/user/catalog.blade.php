@@ -99,15 +99,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         @foreach($categories['Plastik'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-blue-300 to-blue-500 rounded-full shadow-inner flex items-center justify-center opacity-90">
-                                    <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-14 bg-gradient-to-br from-blue-300 to-blue-500 rounded-full shadow-inner flex items-center justify-center opacity-90">
+                                        <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')
@@ -133,15 +137,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($categories['Kertas'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-orange-300 to-orange-500 rounded shadow-inner flex items-center justify-center opacity-90 border-t-4 border-orange-600">
-                                    <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-14 bg-gradient-to-br from-orange-300 to-orange-500 rounded shadow-inner flex items-center justify-center opacity-90 border-t-4 border-orange-600">
+                                        <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')
@@ -167,15 +175,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($categories['Logam'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full shadow-inner flex items-center justify-center opacity-90 border-[3px] border-gray-300">
-                                    <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full shadow-inner flex items-center justify-center opacity-90 border-[3px] border-gray-300">
+                                        <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')
@@ -201,15 +213,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($categories['Kaca'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-14 bg-gradient-to-br from-cyan-300 to-cyan-500 rounded-lg shadow-inner flex items-center justify-center opacity-80 transform rotate-12">
-                                    <span class="text-white font-extrabold text-lg transform -rotate-12">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-300 to-cyan-500 rounded-lg shadow-inner flex items-center justify-center opacity-80 transform rotate-12">
+                                        <span class="text-white font-extrabold text-lg transform -rotate-12">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')
@@ -235,15 +251,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($categories['Elektronik'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-12 bg-[#516E5A] rounded px-2 py-1 shadow-inner flex items-center justify-center relative bg-gradient-to-br from-gray-700 to-gray-900">
-                                    <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-12 bg-[#516E5A] rounded px-2 py-1 shadow-inner flex items-center justify-center relative bg-gradient-to-br from-gray-700 to-gray-900">
+                                        <span class="text-white font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')
@@ -269,15 +289,19 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($categories['Tekstil'] as $item)
                         <div class="bg-white rounded-2xl shadow-sm border border-gray-100/80 overflow-hidden hover:shadow-md transition cursor-pointer">
-                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center p-4">
-                                <div class="w-14 h-14 border-[4px] border-orange-300 bg-orange-100 rounded flex items-center justify-center relative">
-                                    <span class="text-orange-600 font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
-                                </div>
+                            <div class="h-32 bg-[#F6F8F5] flex items-center justify-center relative">
+                                @if($item->image)
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover">
+                                @else
+                                    <div class="w-14 h-14 border-[4px] border-orange-300 bg-orange-100 rounded flex items-center justify-center relative">
+                                        <span class="text-orange-600 font-extrabold text-lg">{{ substr($item->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                             </div>
                             <div class="p-4">
                                 <p class="text-[10px] font-bold text-gray-400 tracking-wider uppercase mb-1">{{ $item->category }} @if($item->sub_category) &bull; {{ $item->sub_category }} @endif</p>
                                 <h3 class="font-extrabold text-gray-800 text-sm mb-2">{{ $item->name }}</h3>
-                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">Rp {{ number_format($item->price_per_kg, 0, ',', '.') }} <span class="text-xs text-gray-400 font-medium">/kg</span></p>
+                                <p class="text-[#3F6A28] font-extrabold text-lg flex items-baseline gap-1">{{ number_format($item->price_per_kg, 0, ',', '.') }} Poin <span class="text-xs text-gray-400 font-medium">/kg</span></p>
                                 @if($item->trend === 'naik')
                                 <p class="text-[#4A7F2F] text-[11px] font-bold mt-1.5 flex items-center gap-1">▲ {{ $item->trend_amount }}</p>
                                 @elseif($item->trend === 'turun')

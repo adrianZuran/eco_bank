@@ -101,7 +101,7 @@
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100">Nama Nasabah</th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100">Email</th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100">Tanggal Bergabung</th>
-                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100">Saldo Wallet</th>
+                        <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100">Poin Terkumpul</th>
                         <th class="px-6 py-4 text-xs font-bold tracking-wider text-gray-500 uppercase border-b border-gray-100 text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -128,7 +128,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-extrabold text-[#2C481A]">
-                                Rp {{ number_format($user->balance, 0, ',', '.') }}
+                                {{ number_format($user->balance, 0, ',', '.') }} Poin
                             </td>
                             <td class="px-6 py-4 text-right whitespace-nowrap">
                                 <button class="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">Lihat Detail</button>

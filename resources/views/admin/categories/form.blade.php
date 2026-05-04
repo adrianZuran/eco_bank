@@ -23,7 +23,7 @@
                     </div>
                 @endif
 
-                <form action="{{ isset($product) ? route('admin.catalog.update', $product->id) : route('admin.catalog.store') }}" method="POST" class="space-y-6">
+                <form action="{{ isset($product) ? route('admin.catalog.update', $product->id) : route('admin.catalog.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @if(isset($product))
                         @method('PUT')
@@ -73,6 +73,17 @@
                         <div>
                             <label for="trend_amount" class="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2">Angka Trend (Opsional)</label>
                             <input type="text" id="trend_amount" name="trend_amount" value="{{ old('trend_amount', $product->trend_amount ?? '') }}" placeholder="Contoh: +Rp 200, -Rp 100" class="w-full bg-[#FAFBFA] border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-[#4A7F2F] focus:border-[#4A7F2F] placeholder-gray-400">
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="sm:col-span-2">
+                            <label for="image" class="block text-xs font-bold text-gray-700 uppercase tracking-widest mb-2">Foto Produk (Opsional)</label>
+                            @if(isset($product) && $product->image)
+                                <div class="mb-3">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="Foto Saat Ini" class="w-24 h-24 object-cover rounded-lg border border-gray-200">
+                                </div>
+                            @endif
+                            <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/jpg" class="w-full bg-[#FAFBFA] border border-gray-200 rounded-xl px-4 py-2 text-sm focus:ring-[#4A7F2F] focus:border-[#4A7F2F] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#F2F7EF] file:text-[#3F6A28] hover:file:bg-[#E2EEDB]">
                         </div>
                     </div>
 

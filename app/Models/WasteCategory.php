@@ -9,6 +9,7 @@ class WasteCategory extends Model
     protected $fillable = [
         'category',
         'sub_category',
+        'image',
         'name',
         'price_per_kg',
         'trend',

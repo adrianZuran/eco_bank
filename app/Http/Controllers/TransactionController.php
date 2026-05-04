@@ -20,10 +20,16 @@ class TransactionController extends Controller
         $request->validate([
             'waste_category_id' => 'required',
             'weight' => 'required|numeric|min:0.1',
+            'waste_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $category = WasteCategory::find($request->waste_category_id);
         $total_amount = $request->weight * $category->price_per_kg;
+
+        $imagePath = null;
+        if ($request->hasFile('waste_image')) {
+            $imagePath = $request->file('waste_image')->store('waste_images', 'public');
+        }
 
         Transaction::create([
             'user_id' => auth()->id(),
@@ -36,6 +42,7 @@ class TransactionController extends Controller
             'ecopoint_branch' => $request->ecopoint_branch,
             'pickup_date' => $request->pickup_date,
             'notes' => $request->notes,
+            'waste_image' => $imagePath,
         ]);
 
         return back()->with('success', 'Setoran berhasil! Tunggu verifikasi admin.');

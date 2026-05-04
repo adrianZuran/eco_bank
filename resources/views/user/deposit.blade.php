@@ -22,7 +22,7 @@
             @endif
 
             <!-- Form -->
-            <form action="{{ route('deposit.store') }}" method="POST">
+            <form action="{{ route('deposit.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 <!-- Removed hardcoded hidden inputs -->
@@ -101,7 +101,7 @@
                             <select id="waste_category" name="waste_category_id" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10" onchange="calculateTotal()" required>
                                 <option value="" disabled selected>Pilih Jenis Sampah</option>
                                 @foreach($categories as $cat)
-                                    <option value="{{ $cat->id }}" data-price="{{ $cat->price_per_kg }}">{{ $cat->name }} - Rp {{ number_format($cat->price_per_kg, 0, ',', '.') }}/kg</option>
+                                    <option value="{{ $cat->id }}" data-price="{{ $cat->price_per_kg }}">{{ $cat->name }} - {{ number_format($cat->price_per_kg, 0, ',', '.') }} Poin/kg</option>
                                 @endforeach
                             </select>
                         </div>
@@ -115,9 +115,14 @@
                             </div>
                         </div>
 
+                        <div>
+                            <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Foto Sampah <span class="text-gray-400 font-medium ml-1">(opsional)</span></label>
+                            <input type="file" name="waste_image" accept="image/jpeg, image/png, image/jpg" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#F2F7EF] file:text-[#3F6A28] hover:file:bg-[#E2EEDB]">
+                        </div>
+
                         <div class="bg-[#F8FCF5] border border-[#BDE8A5] rounded-xl p-4 mt-4 flex justify-between items-center">
-                            <span class="text-[13px] font-bold text-[#3F6A28]">Estimasi Pendapatan</span>
-                            <span id="estimated_total" class="text-lg font-extrabold text-[#2C481A]">Rp 0</span>
+                            <span class="text-[13px] font-bold text-[#3F6A28]">Estimasi Poin</span>
+                            <span id="estimated_total" class="text-lg font-extrabold text-[#2C481A]">0 Poin</span>
                         </div>
                     </div>
                 </div>
@@ -160,12 +165,12 @@
 
                 if (pricePerKg && weight > 0) {
                     const total = pricePerKg * weight;
-                    totalDisplay.innerText = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(total);
+                    totalDisplay.innerText = new Intl.NumberFormat('id-ID').format(total) + ' Poin';
                     return;
                 }
             }
             
-            totalDisplay.innerText = 'Rp 0';
+            totalDisplay.innerText = '0 Poin';
         }
     </script>
 </x-app-layout>
