@@ -106,22 +106,40 @@
                             Misi Aktif
                         </h3>
                         
-                        <div class="flex items-start gap-5">
-                            <div class="bg-[#F2F7EF] p-4 rounded-xl text-[#3F6A28]">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                            </div>
-                            <div class="flex-1 w-full pt-1">
-                                <h4 class="text-base font-bold text-gray-900">Setorkan 5kg Plastik Minggu Ini</h4>
-                                <p class="text-[13px] text-[#4A7F2F] font-bold mb-4">+150 EcoPoints</p>
-                                
-                                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
-                                    <div class="bg-[#3F6A28] h-2 rounded-full" style="width: 60%"></div>
+                        <div class="space-y-4">
+                            @forelse($activeMissions as $mission)
+                                @php
+                                    $userMission = $userMissions->get($mission->id);
+                                @endphp
+                                <div class="flex items-start gap-4 p-4 rounded-xl border {{ $userMission ? 'bg-gray-50 border-gray-200' : 'bg-white border-[#3F6A28]/20' }}">
+                                    <div class="{{ $userMission ? 'bg-gray-200 text-gray-500' : 'bg-[#F2F7EF] text-[#3F6A28]' }} p-3 rounded-xl flex-shrink-0">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    </div>
+                                    <div class="flex-1 w-full pt-1">
+                                        <h4 class="text-base font-bold {{ $userMission ? 'text-gray-600' : 'text-gray-900' }}">{{ $mission->title }}</h4>
+                                        <p class="text-[13px] text-gray-500 mt-1 mb-2">{{ $mission->description }}</p>
+                                        <p class="text-[13px] font-bold mb-3 {{ $userMission ? 'text-gray-500' : 'text-[#4A7F2F]' }}">Hadiah: +{{ $mission->reward_points }} Poin</p>
+                                        
+                                        @if(!$userMission)
+                                            <form action="{{ route('user.missions.complete', $mission->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="w-full py-2 bg-[#3F6A28] text-white text-xs font-bold rounded-lg hover:bg-[#345920] transition">Klaim Misi</button>
+                                            </form>
+                                        @elseif($userMission->status === 'pending')
+                                            <div class="w-full py-2 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-lg text-center">Menunggu Verifikasi</div>
+                                        @else
+                                            <div class="w-full py-2 bg-green-100 text-green-800 text-xs font-bold rounded-lg text-center flex justify-center items-center gap-1">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                Selesai
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="flex justify-between text-[13px] text-gray-500 font-medium">
-                                    <span>3kg / 5kg</span>
-                                    <span>60%</span>
+                            @empty
+                                <div class="text-center p-6 bg-gray-50 rounded-xl border border-gray-100">
+                                    <p class="text-sm text-gray-500">Belum ada misi aktif saat ini.</p>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
 
@@ -155,51 +173,105 @@
                 </div>
             </div>
         </div>
-    </div>
+        
+        <!-- Modal Tukar Poin -->
+        <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div x-show="showModal" class="fixed inset-0 transition-opacity" aria-hidden="true" x-transition.opacity>
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div x-show="showModal" class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md w-full" x-transition.opacity>
+                    <form action="{{ route('exchange.store') }}" method="POST" x-data="{ rewardType: 'uang', points: '' }">
+                        @csrf
+                        
+                        <!-- Header -->
+                        <div class="bg-gradient-to-r from-[#3F6A28] to-[#5C8D3A] px-6 py-5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-white opacity-10"></div>
+                            <h3 class="text-xl font-extrabold text-white relative z-10" id="modal-title">Tukar EcoPoints</h3>
+                            <p class="text-green-50 text-sm mt-1 relative z-10">Poin Anda saat ini: <span class="font-bold text-yellow-300">{{ number_format(auth()->user()->balance, 0, ',', '.') }}</span></p>
+                        </div>
 
-    <!-- Modal Tukar Poin -->
-    <div x-show="showModal" class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
-        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div x-show="showModal" class="fixed inset-0 transition-opacity" aria-hidden="true" x-transition.opacity>
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div x-show="showModal" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full" x-transition.opacity>
-                <form action="{{ route('exchange.store') }}" method="POST">
-                    @csrf
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg class="h-6 w-6 text-[#4A7F2F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">Tukar Poin Anda</h3>
-                                <div class="mt-4 space-y-4">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Penukaran</label>
-                                        <select name="reward_type" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm">
-                                            <option value="uang">Uang (Transfer Bank/E-Wallet)</option>
-                                            <option value="pulsa">Pulsa / Paket Data</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah Poin (Min. 1000)</label>
-                                        <input type="number" name="points_deducted" min="1000" max="{{ auth()->user()->balance }}" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm" placeholder="Contoh: 10000">
-                                        <p class="text-xs text-gray-500 mt-1">Sisa poin Anda: {{ number_format(auth()->user()->balance, 0, ',', '.') }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Rekening / No. HP</label>
-                                        <input type="text" name="account_info" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A] focus:ring-opacity-50 text-sm" placeholder="Contoh: BCA 1234567890 / 081234567890">
-                                    </div>
+                        <!-- Body -->
+                        <div class="px-6 py-6 bg-white space-y-6">
+                            <!-- Pilihan Penukaran -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-3">Pilih Jenis Penukaran</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="relative cursor-pointer">
+                                        <input type="radio" name="reward_type" value="uang" x-model="rewardType" class="peer sr-only">
+                                        <div class="p-4 rounded-2xl border-2 transition-all peer-checked:border-[#5C8D3A] peer-checked:bg-[#F2F7EF] border-gray-100 hover:border-gray-200 text-center">
+                                            <div class="w-10 h-10 mx-auto bg-green-100 text-[#5C8D3A] rounded-full flex items-center justify-center mb-2 shadow-sm">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            </div>
+                                            <span class="block text-sm font-bold text-gray-800">Tunai</span>
+                                            <span class="block text-[11px] text-gray-500 mt-1">E-Wallet / Bank</span>
+                                        </div>
+                                        <div class="absolute top-2 right-2 hidden peer-checked:block text-[#5C8D3A]">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                        </div>
+                                    </label>
+
+                                    <label class="relative cursor-pointer">
+                                        <input type="radio" name="reward_type" value="pulsa" x-model="rewardType" class="peer sr-only">
+                                        <div class="p-4 rounded-2xl border-2 transition-all peer-checked:border-[#5C8D3A] peer-checked:bg-[#F2F7EF] border-gray-100 hover:border-gray-200 text-center">
+                                            <div class="w-10 h-10 mx-auto bg-blue-100 text-blue-500 rounded-full flex items-center justify-center mb-2 shadow-sm">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                            </div>
+                                            <span class="block text-sm font-bold text-gray-800">Pulsa</span>
+                                            <span class="block text-[11px] text-gray-500 mt-1">All Operator</span>
+                                        </div>
+                                        <div class="absolute top-2 right-2 hidden peer-checked:block text-[#5C8D3A]">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
+
+                            <!-- Jumlah Poin -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <label class="block text-sm font-bold text-gray-700">Jumlah Poin <span class="text-red-500">*</span></label>
+                                    <span class="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">Min. 1000 Poin</span>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2l2.39 4.846 5.353.778-3.87 3.774.914 5.333L10 14.225l-4.787 2.506.914-5.333-3.871-3.774 5.353-.778L10 2z"/></svg>
+                                    </div>
+                                    <input type="number" name="points_deducted" x-model="points" min="1000" max="{{ auth()->user()->balance }}" required class="pl-12 w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A]/30 text-sm font-bold py-3 transition-shadow" placeholder="Masukkan jumlah poin">
+                                </div>
+                                <p class="text-[12px] text-gray-500 mt-2 flex items-center gap-1" x-show="points && points >= 1000">
+                                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Estimasi nilai: <span class="font-bold text-[#5C8D3A]" x-text="'Rp ' + (points * 1).toLocaleString('id-ID')"></span>
+                                </p>
+                            </div>
+
+                            <!-- Info Akun -->
+                            <div x-show="rewardType === 'uang'" x-transition>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Detail Rekening / E-Wallet <span class="text-red-500">*</span></label>
+                                <input type="text" name="account_info" :required="rewardType === 'uang'" class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A]/30 text-sm py-3 transition-shadow" placeholder="Contoh: Gopay 08123456789 / BCA 1234567890" :disabled="rewardType !== 'uang'">
+                                <p class="text-[11px] text-gray-500 mt-1">Pastikan nama bank/e-wallet dan nomor sudah benar.</p>
+                            </div>
+                            
+                            <div x-show="rewardType === 'pulsa'" x-transition style="display: none;">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Nomor HP / Provider <span class="text-red-500">*</span></label>
+                                <input type="text" name="account_info" :required="rewardType === 'pulsa'" class="w-full rounded-xl border-gray-300 shadow-sm focus:border-[#5C8D3A] focus:ring focus:ring-[#5C8D3A]/30 text-sm py-3 transition-shadow" placeholder="Contoh: Telkomsel 08123456789" :disabled="rewardType !== 'pulsa'">
+                                <p class="text-[11px] text-gray-500 mt-1">Pastikan nomor HP tujuan aktif.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <button type="submit" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-4 py-2 bg-[#3F6A28] text-base font-medium text-white hover:bg-[#345920] focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">Tukar Sekarang</button>
-                        <button type="button" @click="showModal = false" class="mt-3 w-full inline-flex justify-center rounded-xl border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Batal</button>
-                    </div>
-                </form>
+                        
+                        <!-- Footer -->
+                        <div class="bg-gray-50 px-6 py-4 flex flex-col-reverse sm:flex-row sm:justify-end gap-3 border-t border-gray-100">
+                            <button type="button" @click="showModal = false" class="w-full sm:w-auto inline-flex justify-center items-center rounded-xl border border-gray-300 shadow-sm px-5 py-2.5 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C8D3A] transition-colors">
+                                Batal
+                            </button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex justify-center items-center rounded-xl border border-transparent shadow-md px-5 py-2.5 bg-[#3F6A28] text-sm font-bold text-white hover:bg-[#345920] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C8D3A] transition-colors">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Kirim Permintaan
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

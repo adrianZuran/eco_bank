@@ -4,7 +4,7 @@
     </x-slot>
 
     <!-- Stats Overview -->
-    <div class="grid grid-cols-1 gap-6 mb-8 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
         <!-- Users Stat -->
         <div class="p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-shadow">
             <div>
@@ -30,13 +30,27 @@
         <!-- Weight Stat -->
         <div class="p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-shadow">
             <div>
-                <p class="text-sm font-medium text-gray-500 uppercase tracking-widest">Total Berat (Kg)</p>
+                <p class="text-sm font-medium text-gray-500 uppercase tracking-widest">Total Berat</p>
                 <p class="text-3xl font-extrabold text-gray-900 mt-2">{{ number_format($totalWeight, 1) }} <span class="text-lg text-gray-400">kg</span></p>
             </div>
             <div class="p-4 bg-purple-50 rounded-xl">
                 <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
             </div>
         </div>
+
+        <!-- Pending Exchanges Stat -->
+        <a href="{{ route('admin.exchanges.index') }}" class="p-6 bg-white border border-gray-100 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-shadow group">
+            <div>
+                <p class="text-sm font-medium text-gray-500 uppercase tracking-widest">Tukar Poin</p>
+                <div class="flex items-baseline gap-2 mt-2">
+                    <p class="text-3xl font-extrabold text-gray-900">{{ $pendingExchanges }}</p>
+                    <p class="text-sm font-bold text-orange-500">Tertunda</p>
+                </div>
+            </div>
+            <div class="p-4 bg-orange-50 rounded-xl group-hover:bg-orange-100 transition-colors">
+                <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+        </a>
     </div>
 
     @if(session('success'))

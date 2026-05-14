@@ -51,11 +51,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $co2Saved = $totalWeight * 1.2;
         $ecoPoints = floor($user->balance / 100);
 
-        return view('user.dashboard', compact('totalWeight', 'totalTransactions', 'treesSaved', 'co2Saved', 'ecoPoints', 'recentTransactions'));
+        $activeMissions = \App\Models\Mission::where('is_active', true)->get();
+        $userMissions = \App\Models\UserMission::where('user_id', $user->id)->get()->keyBy('mission_id');
+
+        return view('user.dashboard', compact('totalWeight', 'totalTransactions', 'treesSaved', 'co2Saved', 'ecoPoints', 'recentTransactions', 'activeMissions', 'userMissions'));
     })->name('user.dashboard');
     Route::get('/deposit', [TransactionController::class, 'index'])->name('deposit.index');
     Route::post('/deposit', [TransactionController::class, 'store'])->name('deposit.store');
     Route::post('/exchange', [PointExchangeController::class, 'store'])->name('exchange.store');
+    Route::post('/missions/{mission}/complete', [\App\Http\Controllers\UserMissionController::class, 'store'])->name('user.missions.complete');
 });
 
 // ROUTE KHUSUS ADMIN (PETUGAS BANK SAMPAH)
@@ -79,6 +83,18 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/admin/exchanges', [AdminController::class, 'exchanges'])->name('admin.exchanges.index');
     Route::patch('/admin/exchanges/{id}/approve', [AdminController::class, 'approveExchange'])->name('admin.exchanges.approve');
     Route::patch('/admin/exchanges/{id}/reject', [AdminController::class, 'rejectExchange'])->name('admin.exchanges.reject');
+    
+    Route::resource('admin/missions', \App\Http\Controllers\Admin\MissionController::class)->names([
+        'index' => 'admin.missions.index',
+        'create' => 'admin.missions.create',
+        'store' => 'admin.missions.store',
+        'edit' => 'admin.missions.edit',
+        'update' => 'admin.missions.update',
+        'destroy' => 'admin.missions.destroy',
+    ]);
+    Route::get('/admin/user-missions', [\App\Http\Controllers\Admin\MissionController::class, 'userMissions'])->name('admin.user-missions.index');
+    Route::patch('/admin/user-missions/{userMission}/approve', [\App\Http\Controllers\Admin\MissionController::class, 'approveUserMission'])->name('admin.user-missions.approve');
+    Route::patch('/admin/user-missions/{userMission}/reject', [\App\Http\Controllers\Admin\MissionController::class, 'rejectUserMission'])->name('admin.user-missions.reject');
 });
 
 require __DIR__.'/auth.php';

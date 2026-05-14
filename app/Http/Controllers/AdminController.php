@@ -10,8 +10,9 @@ class AdminController extends Controller
         $users = \App\Models\User::where('role', 'user')->latest()->get();
         $totalTransactions = \App\Models\Transaction::count();
         $totalWeight = \App\Models\Transaction::sum('weight');
+        $pendingExchanges = \App\Models\PointExchange::where('status', 'pending')->count();
         
-        return view('admin.dashboard', compact('users', 'totalTransactions', 'totalWeight'));
+        return view('admin.dashboard', compact('users', 'totalTransactions', 'totalWeight', 'pendingExchanges'));
     }
 
     public function index() {
