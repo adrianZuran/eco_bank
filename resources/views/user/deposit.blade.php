@@ -64,25 +64,25 @@
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Jenis Pengiriman <span class="text-red-500">*</span></label>
                             <select name="shipping_type" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
                                 <option value="Antar Sendiri ke EcoPoint">Antar Sendiri ke EcoPoint</option>
-                                <option value="Penjemputan / Pickup">Penjemputan / Pickup</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Pilih Cabang EcoPoint <span class="text-red-500">*</span></label>
+                            <select name="ecopoint_branch" id="ecopoint_branch" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
+                                <option value="">Pilih EcoPoint Terdekat</option>
+                                <option value="Cabang Surabaya Pusat">Cabang Surabaya Pusat</option>
+                                <option value="Cabang Surabaya Timur">Cabang Surabaya Timur</option>
+                                <option value="Cabang Surabaya Barat">Cabang Surabaya Barat</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Alamat Lengkap <span class="text-red-500">*</span></label>
-                            <textarea name="address" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-28 resize-y" placeholder="Nama Jalan, No. Rumah, RT/RW, Kecamatan..."></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Pilih Cabang EcoPoint <span class="text-red-500">*</span></label>
-                            <select name="ecopoint_branch" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239CA3AF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[position:right_1rem_center] bg-no-repeat pr-10">
-                                <option value="">Pilih EcoPoint Terdekat</option>
-                                <option value="Cabang Pusat">Cabang Pusat</option>
-                                <option value="Cabang Utara">Cabang Utara</option>
-                            </select>
+                            <textarea name="address" id="address" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-3 text-sm h-28 resize-y" placeholder="Pilih cabang EcoPoint untuk melihat alamat lengkap..."></textarea>
                         </div>
                         <div>
                             <label class="block text-[13px] font-bold text-gray-700 mb-1.5">Jadwal Setor <span class="text-red-500">*</span></label>
                             <div class="relative">
-                                <input type="datetime-local" name="pickup_date" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm">
+                                <input type="datetime-local" name="pickup_date" id="pickup_date" class="w-full border-gray-200 rounded-xl focus:ring-[#4A7F2F] focus:border-[#4A7F2F] bg-gray-50 text-gray-700 px-4 py-2.5 text-sm" required>
                             </div>
                         </div>
                     </div>
@@ -172,5 +172,34 @@
             
             totalDisplay.innerText = '0 Poin';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date & time
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('pickup_date').value = now.toISOString().slice(0,16);
+
+            // Address automation
+            const branchSelect = document.getElementById('ecopoint_branch');
+            const addressInput = document.getElementById('address');
+
+            const branches = {
+                'Cabang Surabaya Pusat': 'Jl. Tunjungan No. 1, Genteng, Surabaya Pusat, Jawa Timur 60275',
+                'Cabang Surabaya Timur': 'Jl. Kertajaya Indah No. 10, Mulyorejo, Surabaya Timur, Jawa Timur 60116',
+                'Cabang Surabaya Barat': 'Jl. Mayjen Yono Suwoyo No. 5, Dukuhpakis, Surabaya Barat, Jawa Timur 60226'
+            };
+
+            branchSelect.addEventListener('change', function() {
+                if (branches[this.value]) {
+                    addressInput.value = branches[this.value];
+                    addressInput.setAttribute('readonly', true);
+                    addressInput.classList.add('bg-gray-100');
+                } else {
+                    addressInput.value = '';
+                    addressInput.removeAttribute('readonly');
+                    addressInput.classList.remove('bg-gray-100');
+                }
+            });
+        });
     </script>
 </x-app-layout>

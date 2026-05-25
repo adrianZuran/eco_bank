@@ -22,7 +22,7 @@
                 <ul class="space-y-3">
                     <li><a href="#" class="text-[#A4B39B] hover:text-white text-sm transition-colors">Jual Sampah</a></li>
                     <li><a href="#" class="text-[#A4B39B] hover:text-white text-sm transition-colors">Katalog Harga</a></li>
-                    <li><a href="#" class="text-[#A4B39B] hover:text-white text-sm transition-colors">Dashboard</a></li>
+                    <li><a href="#" class="text-[#A4B39B] hover:text-white text-sm transition-colors">Profile</a></li>
                     <li><a href="#" class="text-[#A4B39B] hover:text-white text-sm transition-colors">Download App</a></li>
                 </ul>
             </div>
