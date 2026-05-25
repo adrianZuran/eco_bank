@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class CatalogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = WasteCategory::orderBy('category')->orderBy('name')->get();
+        $categories = WasteCategory::when($request->search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                             ->orWhere('category', 'like', "%{$search}%");
+            })
+            ->orderBy('category')
+            ->orderBy('name')
+            ->paginate(5);
+            
         return view('admin.categories.index', compact('categories'));
     }
 

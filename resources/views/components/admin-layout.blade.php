@@ -112,5 +112,85 @@
             </main>
         </div>
     </div>
+
+    <!-- Real-time Search Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForms = document.querySelectorAll('form[action]');
+            
+            searchForms.forEach(form => {
+                const searchInput = form.querySelector('input[name="search"]');
+                if (!searchInput) return;
+
+                // Add spinner element inside the relative wrapper
+                const inputWrapper = searchInput.parentElement;
+                const spinnerHTML = `
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none hidden search-spinner">
+                        <svg class="animate-spin h-5 w-5 text-[#5C8D3A]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                `;
+                inputWrapper.insertAdjacentHTML('beforeend', spinnerHTML);
+                const spinner = inputWrapper.querySelector('.search-spinner');
+
+                // Prevent default form submission if it's just searching
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                });
+
+                let debounceTimer;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(debounceTimer);
+                    
+                    spinner.classList.remove('hidden');
+                    
+                    debounceTimer = setTimeout(() => {
+                        const url = new URL(form.action);
+                        url.searchParams.set('search', searchInput.value);
+                        
+                        // Update URL without reload
+                        window.history.pushState({}, '', url);
+
+                        fetch(url, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'text/html'
+                            }
+                        })
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            
+                            // Find the table and pagination in both current and fetched document
+                            const currentTableContainer = document.querySelector('.overflow-x-auto');
+                            const newTableContainer = doc.querySelector('.overflow-x-auto');
+                            
+                            const currentPagination = document.querySelector('.border-t.border-gray-100.bg-gray-50\\/50');
+                            const newPagination = doc.querySelector('.border-t.border-gray-100.bg-gray-50\\/50');
+                            
+                            if (currentTableContainer && newTableContainer) {
+                                currentTableContainer.innerHTML = newTableContainer.innerHTML;
+                            }
+                            
+                            if (currentPagination && newPagination) {
+                                currentPagination.innerHTML = newPagination.innerHTML;
+                            } else if (currentPagination && !newPagination) {
+                                currentPagination.innerHTML = '';
+                            }
+
+                            spinner.classList.add('hidden');
+                        })
+                        .catch(error => {
+                            console.error('Error fetching search results:', error);
+                            spinner.classList.add('hidden');
+                        });
+                    }, 400); // 400ms debounce
+                });
+            });
+        });
+    </script>
 </body>
 </html>

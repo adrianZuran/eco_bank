@@ -6,8 +6,15 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function dashboard() {
-        $users = \App\Models\User::where('role', 'user')->latest()->get();
+    public function dashboard(Request $request) {
+        $users = \App\Models\User::where('role', 'user')
+            ->when($request->search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                             ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(5);
+            
         $totalTransactions = \App\Models\Transaction::count();
         $totalWeight = \App\Models\Transaction::sum('weight');
         $pendingExchanges = \App\Models\PointExchange::where('status', 'pending')->count();
@@ -15,8 +22,18 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('users', 'totalTransactions', 'totalWeight', 'pendingExchanges'));
     }
 
-    public function index() {
-        $transactions = \App\Models\Transaction::with('user', 'wasteCategory')->latest()->get();
+    public function index(Request $request) {
+        $transactions = \App\Models\Transaction::with('user', 'wasteCategory')
+            ->when($request->search, function ($query, $search) {
+                return $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })->orWhereHas('wasteCategory', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(5);
+            
         return view('admin.transactions.index', compact('transactions'));
     }
 
@@ -67,8 +84,16 @@ class AdminController extends Controller
         return back()->with('success', 'Nasabah baru berhasil didaftarkan!');
     }
 
-    public function exchanges() {
-        $exchanges = \App\Models\PointExchange::with('user')->latest()->get();
+    public function exchanges(Request $request) {
+        $exchanges = \App\Models\PointExchange::with('user')
+            ->when($request->search, function ($query, $search) {
+                return $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(5);
+            
         return view('admin.exchanges.index', compact('exchanges'));
     }
 

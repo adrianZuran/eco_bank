@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $missions = \App\Models\Mission::latest()->get();
+        $missions = \App\Models\Mission::when($request->search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(5);
+            
         return view('admin.missions.index', compact('missions'));
     }
 
@@ -65,12 +70,20 @@ class MissionController extends Controller
         return redirect()->route('admin.missions.index')->with('success', 'Misi berhasil dihapus.');
     }
 
-    public function userMissions()
+    public function userMissions(Request $request)
     {
         $userMissions = \App\Models\UserMission::with(['user', 'mission'])
+            ->when($request->search, function ($query, $search) {
+                return $query->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })->orWhereHas('mission', function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%");
+                });
+            })
             ->orderByRaw("FIELD(status, 'pending') DESC")
             ->latest()
-            ->get();
+            ->paginate(5);
+            
         return view('admin.missions.monitoring', compact('userMissions'));
     }
 
